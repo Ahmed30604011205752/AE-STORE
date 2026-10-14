@@ -9,6 +9,7 @@ class CustomPasswordField extends StatelessWidget {
     required this.hintText,
     this.suffixIcon,
     this.obscureText,
+    this.prefixIcon,
     this.maxLines = 1,
     this.keyboardType,
     this.controller,
@@ -16,7 +17,7 @@ class CustomPasswordField extends StatelessWidget {
   });
   final String title;
   final String hintText;
-  final Widget? suffixIcon;
+  final Widget? suffixIcon, prefixIcon;
   final bool? obscureText;
   final TextInputType? keyboardType;
   final int? maxLines;
@@ -45,8 +46,8 @@ class CustomPasswordField extends StatelessWidget {
           maxLines: maxLines,
           decoration: InputDecoration(
             filled: true,
-            fillColor: AppColors.brandButtonSurface,
-            prefixIcon: Icon(Icons.lock_outline),
+            fillColor: AppColors.background,
+            prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             hintText: hintText,
             hintStyle: AppTypography.bodyMd.copyWith(
