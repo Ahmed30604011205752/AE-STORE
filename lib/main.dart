@@ -1,3 +1,4 @@
+import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:ae_store/features/auth/presentation/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class AE_STORE extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignupScreen(),
+      home: loginScreen(),
     );
   }
 }
