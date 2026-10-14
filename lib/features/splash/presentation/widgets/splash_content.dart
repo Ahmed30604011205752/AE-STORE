@@ -1,5 +1,6 @@
 import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/widgets/ae_store_logo.dart';
 import 'package:flutter/material.dart';
 
 class SplashContent extends StatelessWidget {
@@ -45,7 +46,11 @@ class SplashContent extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.circle, size: 8, color: AppColors.brandNavy),
+                    const Icon(
+                      Icons.circle,
+                      size: 8,
+                      color: AppColors.brandNavy,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       "MAISON D'ÉLÉGANCE",
@@ -65,40 +70,7 @@ class SplashContent extends StatelessWidget {
               opacity: logoOpacity,
               child: ScaleTransition(
                 scale: logoScale,
-                child: Container(
-                  width: 164,
-                  height: 164,
-                  decoration: BoxDecoration(
-                    color: AppColors.onPrimary,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.brandNavy.withValues(alpha: 0.2),
-                        blurRadius: 30,
-                        offset: const Offset(0, 12),
-                      ),
-                    ],
-                  ),
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: 128,
-                    height: 128,
-                    decoration: BoxDecoration(
-                      color: AppColors.brandLogoSurface,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'AE',
-                      style: AppTypography.headlineDisplay.copyWith(
-                        color: AppColors.onPrimary,
-                        fontSize: 48,
-                        fontWeight: FontWeight.w300,
-                        letterSpacing: -5,
-                      ),
-                    ),
-                  ),
-                ),
+                child: const AEStoreLogo(),
               ),
             ),
             const SizedBox(height: 34),
