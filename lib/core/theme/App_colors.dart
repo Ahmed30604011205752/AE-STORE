@@ -97,6 +97,17 @@ abstract class AppColors {
   static const Color brandProductBackdropEnd = Color(0xFFF7F6F2);
   static const Color brandEditionOverlay = Color(0xA6FFFFFF);
 
+  // --- Dark Theme ---
+  static const Color darkBackground = Color(0xFF101522);
+  static const Color darkSurface = Color(0xFF191F2E);
+  static const Color darkSurfaceElevated = Color(0xFF222A3B);
+  static const Color darkPrimary = Color(0xFF9AA5FF);
+  static const Color darkOnPrimary = Color(0xFF111845);
+  static const Color darkText = Color(0xFFF3F4FF);
+  static const Color darkTextMuted = Color(0xFFB7BBCB);
+  static const Color darkOutline = Color(0xFF3D455A);
+  static const Color darkError = Color(0xFFFFB4AB);
+
   // --- Light ColorScheme (Material 3 Helper) ---
   static ColorScheme get lightColorScheme => const ColorScheme(
     brightness: Brightness.light,
@@ -125,6 +136,35 @@ abstract class AppColors {
     inverseSurface: inverseSurface,
     onInverseSurface: inverseOnSurface,
     inversePrimary: inversePrimary,
+    scrim: Color(0xFF000000),
+  );
+
+  static ColorScheme get darkColorScheme => const ColorScheme.dark(
+    primary: darkPrimary,
+    onPrimary: darkOnPrimary,
+    primaryContainer: Color(0xFF303C9A),
+    onPrimaryContainer: Color(0xFFDFE0FF),
+    secondary: Color(0xFFC3C0FF),
+    onSecondary: Color(0xFF211B70),
+    secondaryContainer: Color(0xFF372ABF),
+    onSecondaryContainer: Color(0xFFE3DFFF),
+    tertiary: Color(0xFFBCC7DE),
+    onTertiary: Color(0xFF27344C),
+    error: darkError,
+    onError: Color(0xFF690005),
+    surface: darkSurface,
+    onSurface: darkText,
+    surfaceContainerLowest: darkBackground,
+    surfaceContainerLow: darkSurface,
+    surfaceContainer: darkSurfaceElevated,
+    surfaceContainerHigh: Color(0xFF2A3347),
+    surfaceContainerHighest: Color(0xFF343D52),
+    onSurfaceVariant: darkTextMuted,
+    outline: darkTextMuted,
+    outlineVariant: darkOutline,
+    inverseSurface: Color(0xFFE2E2F2),
+    onInverseSurface: Color(0xFF283044),
+    inversePrimary: primary,
     scrim: Color(0xFF000000),
   );
 }
