@@ -6,27 +6,19 @@ import 'package:ae_store/features/auth/presentation/widgets/Custom_TextField.dar
 import 'package:ae_store/features/auth/presentation/widgets/Custom_password_field.dart';
 import 'package:ae_store/features/auth/presentation/widgets/custom_social_button.dart';
 import 'package:ae_store/features/auth/presentation/widgets/or_devider.dart';
+import 'package:ae_store/screens/bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 
-class loginScreen extends StatefulWidget {
-  const loginScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<loginScreen> createState() => loginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class loginScreenState extends State<loginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordObscured = true;
-  bool isConfirmPasswordObscured = true;
   bool isTermsAccepted = false;
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
-  @override
-  void dispose() {
-    _confirmPasswordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +69,7 @@ class loginScreenState extends State<loginScreen> {
                     'ACCOUNT ACCESS',
                     style: TextStyle(
                       color: AppColors.primary,
-                      fontSize: AppTypography.labelSm.fontSize,
+                      fontSize: AppStyles.style13Regular.fontSize,
                     ),
                   ),
                 ],
@@ -89,7 +81,7 @@ class loginScreenState extends State<loginScreen> {
                     'Welcome back',
                     style: TextStyle(
                       color: AppColors.onBackground,
-                      fontSize: AppTypography.headlineLg.fontSize,
+                      fontSize: AppStyles.style24ExtraBold.fontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -103,7 +95,7 @@ class loginScreenState extends State<loginScreen> {
                     maxLines: 1,
                     style: TextStyle(
                       color: AppColors.brandTextSubtle,
-                      fontSize: AppTypography.labelSm.fontSize,
+                      fontSize: AppStyles.style13Regular.fontSize,
                     ),
                   ),
                 ],
@@ -116,7 +108,6 @@ class loginScreenState extends State<loginScreen> {
                     title: "Email",
                     hintText: "Enter your email",
                     prefixIcon: Icon(Icons.email),
-                    controller: TextEditingController(),
                   ),
                   CustomPasswordField(
                     title: "Password",
@@ -188,7 +179,14 @@ class loginScreenState extends State<loginScreen> {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => const BottomNavigationBarScreen(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
                       minimumSize: Size(double.infinity, 50),

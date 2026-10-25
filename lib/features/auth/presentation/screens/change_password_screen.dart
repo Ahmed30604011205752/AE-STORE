@@ -1,0 +1,155 @@
+import 'package:ae_store/core/theme/App_colors.dart';
+import 'package:ae_store/core/utils/validators.dart';
+import 'package:ae_store/core/widgets/custom_elevated_buttom.dart';
+import 'package:ae_store/features/auth/presentation/auth_cubit/auth_cubit.dart';
+import 'package:ae_store/features/auth/presentation/auth_cubit/auth_states.dart';
+import 'package:ae_store/features/auth/presentation/widgets/Custom_password_field.dart';
+import 'package:ae_store/features/settings/presentation/widgets/custom_appBar_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class ChangepasswordScreen extends StatefulWidget {
+  const ChangepasswordScreen({super.key});
+
+  @override
+  State<ChangepasswordScreen> createState() => _ChangepasswordScreenState();
+}
+
+class _ChangepasswordScreenState extends State<ChangepasswordScreen> {
+  bool isVisiable = true;
+  final GlobalKey<FormState> myKey = GlobalKey();
+
+  final TextEditingController currentPasswordCtl = TextEditingController();
+  final TextEditingController newPasswordCtl = TextEditingController();
+  final TextEditingController confirmNewPasswordCtl = TextEditingController();
+  bool isVisiableNewPassword = true;
+  bool isVisiableConfirmNewPassword = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: CustomAppbarWidget(
+          title: "Change Password",
+          onBackPressed: () => Navigator.pop(context),
+        ),
+        body: SafeArea(
+          child: BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is ChangePasswordSuccessState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Password updated successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                // Navigator.pop(context);
+              } else if (state is ChangePasswordFailureState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Column(
+                      children: [Text(state.error), Text("Fail")],
+                    ),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              return SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Form(
+                  key: myKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 8),
+                      CustomPasswordField(
+                        controller: currentPasswordCtl,
+                        title: "Current Password",
+                        hintText: "Enter your current password",
+                        validator: (currentPassword) {
+                          return Validator.validatePassword(currentPassword!);
+                        },
+                      ),
+
+                      const SizedBox(height: 20),
+                      CustomPasswordField(
+                        controller: newPasswordCtl,
+                        title: 'New Password',
+                        hintText: 'Enter your new password',
+                        validator: (newPassword) {
+                          return Validator.validatePassword(newPassword!);
+                        },
+                        obscureText: isVisiableNewPassword,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isVisiableNewPassword = !isVisiableNewPassword;
+                            });
+                          },
+                          icon: Icon(
+                            isVisiableNewPassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppColors.brandButtonMuted,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+
+                      CustomPasswordField(
+                        controller: confirmNewPasswordCtl,
+                        title: 'Confirm New Password',
+                        hintText: 'Re-enter your new password',
+                        obscureText: isVisiableConfirmNewPassword,
+                        validator: (confirmNewPassword) {
+                          return Validator.validateConfirmPassword(
+                            newPasswordCtl.text,
+                            confirmNewPassword!,
+                          );
+                        },
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              isVisiableConfirmNewPassword =
+                                  !isVisiableConfirmNewPassword;
+                            });
+                          },
+                          icon: Icon(
+                            isVisiableConfirmNewPassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppColors.brandButtonMuted,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 36),
+
+                      CustomElevatedButton(
+                        text: state is ChangePasswordLoadingState
+                            ? "Uploading..."
+                            : "Update Password",
+                        onPressed: () {
+                          if (myKey.currentState!.validate()) {
+                            context.read<AuthCubit>().changePassword(
+                              oldPassword: currentPasswordCtl.text,
+                              newPassword: newPasswordCtl.text,
+                              confirmNewPassword: confirmNewPasswordCtl.text,
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
