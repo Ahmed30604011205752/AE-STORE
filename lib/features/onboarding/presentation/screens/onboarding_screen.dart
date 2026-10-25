@@ -4,6 +4,7 @@ import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_hea
 import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_page_indicator.dart';
 import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_service_highlights.dart';
 import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_slide_content.dart';
+import 'package:ae_store/screens/login_screen.dart';
 import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -38,21 +39,46 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
       return;
     }
-    _showWelcomeMessage();
+    _finishOnboarding();
   }
 
   void _skip() {
-    _pageController.animateToPage(
-      OnboardingSlide.all.length - 1,
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeInOutCubic,
+    _finishOnboarding();
+  }
+
+  void _finishOnboarding() {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(builder: (_) => const LoginScreen()),
     );
   }
 
-  void _showWelcomeMessage() {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Welcome to AE Store')));
+  Widget _buildAnimatedPage(int index) {
+    return AnimatedBuilder(
+      animation: _pageController,
+      child: OnboardingSlideContent(
+        slide: OnboardingSlide.all[index],
+        index: index,
+      ),
+      builder: (context, child) {
+        final page =
+            _pageController.hasClients &&
+                _pageController.position.hasContentDimensions
+            ? (_pageController.page ?? _currentPage.toDouble())
+            : _currentPage.toDouble();
+        final distance = (page - index).abs().clamp(0.0, 1.0);
+        final scale = 1 - (distance * 0.06);
+        final opacity = 1 - (distance * 0.18);
+        final verticalOffset = distance * 18;
+
+        return Opacity(
+          opacity: opacity,
+          child: Transform.translate(
+            offset: Offset(0, verticalOffset),
+            child: Transform.scale(scale: scale, child: child),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -73,10 +99,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPageChanged: (index) {
                     setState(() => _currentPage = index);
                   },
-                  itemBuilder: (context, index) => OnboardingSlideContent(
-                    slide: OnboardingSlide.all[index],
-                    index: index,
-                  ),
+                  itemBuilder: (context, index) => _buildAnimatedPage(index),
                 ),
               ),
               const SizedBox(height: 12),

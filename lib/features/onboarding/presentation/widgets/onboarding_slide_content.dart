@@ -40,7 +40,7 @@ class OnboardingSlideContent extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 slide.eyebrow,
-                style: AppTypography.labelSm.copyWith(
+                style: AppStyles.style13Regular.copyWith(
                   color: AppColors.brandNavy,
                   fontSize: 9,
                   fontWeight: FontWeight.w700,
@@ -54,7 +54,7 @@ class OnboardingSlideContent extends StatelessWidget {
         Text(
           slide.title,
           textAlign: TextAlign.center,
-          style: AppTypography.headlineMd.copyWith(
+          style: AppStyles.style22Bold.copyWith(
             color: AppColors.brandInk,
             fontSize: 21,
             fontWeight: FontWeight.w700,
@@ -67,7 +67,7 @@ class OnboardingSlideContent extends StatelessWidget {
           child: Text(
             slide.description,
             textAlign: TextAlign.center,
-            style: AppTypography.bodySm.copyWith(
+            style: AppStyles.style13Regular.copyWith(
               color: AppColors.brandTextSoft,
               fontSize: 12,
               height: 1.55,

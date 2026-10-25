@@ -46,7 +46,7 @@ class _ServiceHighlight extends StatelessWidget {
         Flexible(
           child: Text(
             label,
-            style: AppTypography.labelSm.copyWith(
+            style: AppStyles.style13Regular.copyWith(
               color: AppColors.brandTextMuted,
               fontSize: 8,
               height: 1.25,

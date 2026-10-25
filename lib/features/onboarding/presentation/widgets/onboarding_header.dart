@@ -26,7 +26,7 @@ class OnboardingHeader extends StatelessWidget {
                 const SizedBox(width: 6),
                 Text(
                   'AE STORE • EDITION 01',
-                  style: AppTypography.labelSm.copyWith(
+                  style: AppStyles.style13Regular.copyWith(
                     color: AppColors.brandInk,
                     fontSize: 9,
                     fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class OnboardingHeader extends StatelessWidget {
               children: [
                 Text(
                   'Skip',
-                  style: AppTypography.labelMd.copyWith(fontSize: 11),
+                  style: AppStyles.style13Regular.copyWith(fontSize: 11),
                 ),
                 const SizedBox(width: 4),
                 const Icon(Icons.arrow_forward, size: 13),
