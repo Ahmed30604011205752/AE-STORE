@@ -33,7 +33,7 @@ class OnboardingContinueButton extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               isLastPage ? 'Enter Salon' : 'Continue',
-              style: AppTypography.labelMd.copyWith(
+              style: AppStyles.style13Regular.copyWith(
                 color: AppColors.onPrimary,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

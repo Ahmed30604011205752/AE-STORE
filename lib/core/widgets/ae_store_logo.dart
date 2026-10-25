@@ -36,7 +36,7 @@ class AEStoreLogo extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           'AE',
-          style: AppTypography.headlineDisplay.copyWith(
+          style: AppStyles.style22Bold.copyWith(
             color: AppColors.onPrimary,
             fontSize: size * 0.29,
             fontWeight: FontWeight.w300,

@@ -33,7 +33,7 @@ class CustomTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTypography.labelMd.copyWith(
+          style: AppStyles.style13Regular.copyWith(
             fontFamily: "Manrope",
             color: AppColors.primary,
           ),
@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText ?? false,
           keyboardType: keyboardType,
           maxLines: maxLines,
-          style: AppTypography.bodyMd.copyWith(
+          style: AppStyles.style13Regular.copyWith(
             color: AppColors.brandDialDeepBlue,
           ),
           decoration: InputDecoration(
@@ -54,7 +54,7 @@ class CustomTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             hintText: hintText,
-            hintStyle: AppTypography.bodyMd.copyWith(
+            hintStyle: AppStyles.style13Regular.copyWith(
               color: AppColors.brandTextMuted,
             ),
             enabledBorder: OutlineInputBorder(

@@ -32,7 +32,7 @@ class CustomPasswordField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTypography.labelMd.copyWith(
+          style: AppStyles.style13Regular.copyWith(
             fontFamily: "Manrope",
             color: AppColors.primary,
           ),
@@ -50,7 +50,7 @@ class CustomPasswordField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             hintText: hintText,
-            hintStyle: AppTypography.bodyMd.copyWith(
+            hintStyle: AppStyles.style13Regular.copyWith(
               color: AppColors.brandTextMuted,
             ),
             enabledBorder: OutlineInputBorder(

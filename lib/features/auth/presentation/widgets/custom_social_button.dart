@@ -8,9 +8,11 @@ class CustomSocialButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.iconPath,
+    this.onPressed,
   });
   final String text;
   final String iconPath;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +23,11 @@ class CustomSocialButton extends StatelessWidget {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       icon: SizedBox(width: 25, height: 25, child: SvgPicture.asset(iconPath)),
       label: Text(
         text,
-        style: AppTypography.bodyLg.copyWith(color: AppColors.onBackground),
+        style: AppStyles.style13Regular.copyWith(color: AppColors.onBackground),
       ),
     );
   }

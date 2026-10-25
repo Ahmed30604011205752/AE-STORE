@@ -54,7 +54,7 @@ class SplashContent extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       "MAISON D'ÉLÉGANCE",
-                      style: AppTypography.labelMd.copyWith(
+                      style: AppStyles.style13Regular.copyWith(
                         color: AppColors.brandTextSoft,
                         fontSize: 11,
                         fontWeight: FontWeight.w600,
@@ -83,7 +83,7 @@ class SplashContent extends StatelessWidget {
                     Text(
                       'AE STORE',
                       textAlign: TextAlign.center,
-                      style: AppTypography.headlineLg.copyWith(
+                      style: AppStyles.style22Bold.copyWith(
                         color: AppColors.brandInk,
                         fontSize: 29,
                         fontWeight: FontWeight.w700,
@@ -102,7 +102,7 @@ class SplashContent extends StatelessWidget {
                     Text(
                       'HAUTE HORLOGERIE & ACCESSORIES',
                       textAlign: TextAlign.center,
-                      style: AppTypography.bodySm.copyWith(
+                      style: AppStyles.style13Regular.copyWith(
                         color: AppColors.brandTextSecondary,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -129,7 +129,7 @@ class SplashContent extends StatelessWidget {
                           children: [
                             Text(
                               'ENTER SALON',
-                              style: AppTypography.labelLg.copyWith(
+                              style: AppStyles.style14Bold.copyWith(
                                 color: AppColors.onPrimary,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -153,7 +153,7 @@ class SplashContent extends StatelessWidget {
                 children: [
                   Text(
                     'GENÈVE  •  MILANO  •  PARIS',
-                    style: AppTypography.labelMd.copyWith(
+                    style: AppStyles.style13Regular.copyWith(
                       color: AppColors.brandTextFooter,
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -182,7 +182,7 @@ class SplashContent extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             'EDITION V2.4',
-                            style: AppTypography.labelSm.copyWith(
+                            style: AppStyles.style13Regular.copyWith(
                               color: AppColors.brandTextMuted,
                               fontSize: 10,
                               letterSpacing: 0.5,

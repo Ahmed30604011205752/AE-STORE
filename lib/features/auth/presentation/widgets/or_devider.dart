@@ -12,7 +12,7 @@ class OrDivider extends StatelessWidget {
         Expanded(child: Divider(color: AppColors.brandButtonMuted)),
         Text(
           '   Or Continue With   ',
-          style: AppTypography.bodySm.copyWith(
+          style: AppStyles.style13Regular.copyWith(
             color: AppColors.brandButtonMuted,
           ),
         ),

@@ -1,0 +1,71 @@
+import 'package:ae_store/core/theme/App_colors.dart';
+import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:flutter/material.dart';
+
+class BuildCategoryDropdown extends StatefulWidget {
+  const BuildCategoryDropdown({super.key});
+
+  @override
+  State<BuildCategoryDropdown> createState() => _BuildCategoryDropdownState();
+}
+
+String? _selectedCategory;
+
+class _BuildCategoryDropdownState extends State<BuildCategoryDropdown> {
+  @override
+  Widget build(BuildContext context) {
+    final List<String> categories = [
+      'Jewelry',
+      'Clothing',
+      'Accessories',
+      'Home',
+      'Electronics',
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'CATEGORY',
+          style: AppStyles.style14SemiBold.copyWith(
+            color: AppColors.brandButtonMuted,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          decoration: BoxDecoration(
+            color: AppColors.background,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.background),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: _selectedCategory ?? categories.first,
+              isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down),
+              items: categories
+                  .map(
+                    (category) => DropdownMenuItem(
+                      value: category,
+                      child: Text(
+                        category,
+                        style: AppStyles.style14Bold.copyWith(
+                          color: AppColors.brandButtonMuted,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  _selectedCategory = value;
+                });
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
