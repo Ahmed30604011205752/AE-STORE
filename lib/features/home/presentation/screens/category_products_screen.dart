@@ -1,5 +1,5 @@
-import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/widgets/custom_container_row.dart';
 import 'package:ae_store/features/home/presentation/widgets/cutom_gridview_home.dart';
@@ -15,12 +15,14 @@ class CategoryProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return BlocProvider(
       create: (context) => ProductsCubit()..getProducts(),
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: colors.background,
         appBar: AppBar(
-          backgroundColor: AppColors.background,
+          backgroundColor: colors.background,
           centerTitle: true,
           title: Text(
             categoryName ?? 'Category Products',
@@ -41,7 +43,7 @@ class CategoryProductsScreen extends StatelessWidget {
                             ? 'Showing products'
                             : 'Showing products in $categoryName',
                         style: AppStyles.style13Regular.copyWith(
-                          color: AppColors.brandButtonMuted,
+                          color: colors.gray,
                         ),
                       ),
                       const Spacer(),

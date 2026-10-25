@@ -1,6 +1,5 @@
-
-import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,8 +13,11 @@ class CartEmptyScreen extends StatefulWidget {
 class _CartEmptyScreenState extends State<CartEmptyScreen> {
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: colors.background,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -28,7 +30,7 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
                   height: 160,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.brandButtonMuted.withValues(alpha: 0.30),
+                    color: colors.cardFill,
                   ),
                   child: Center(
                     child: Container(
@@ -36,12 +38,12 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
                       height: 100,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey.withValues(alpha: 0.30),
+                        color: colors.bottomBackground,
                       ),
                       child: Icon(
                         Icons.shopping_bag_outlined,
                         size: 40,
-                        color: AppColors.primary,
+                        color: colorScheme.primary,
                       ),
                     ),
                   ),
@@ -65,7 +67,7 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: colorScheme.primary,
                     minimumSize: const Size(200, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -73,7 +75,9 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
                   ),
                   child: Text(
                     'Start Shopping',
-                    style: AppStyles.style16Bold.copyWith(color: Colors.white),
+                    style: AppStyles.style16Bold.copyWith(
+                      color: colorScheme.onPrimary,
+                    ),
                   ),
                 ),
               ],

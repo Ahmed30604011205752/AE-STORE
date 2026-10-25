@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:ae_store/core/theme/App_Styles.dart';
-import 'package:ae_store/core/theme/App_colors.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:ae_store/features/cart/presentation/cubits/cart_state.dart';
 import 'package:ae_store/features/cart/presentation/screens/cart_empty_screen.dart';
@@ -36,10 +36,13 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: colors.background,
       appBar: AppBar(
-        backgroundColor: AppColors.background,
+        backgroundColor: colors.background,
         elevation: 0,
         title: Text('MY CART', style: AppStyles.style28ExtraBold),
       ),
@@ -54,16 +57,16 @@ class _CartScreenState extends State<CartScreen> {
             listener: (context, state) {
               if (state is removeCartfialure) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Could not update the cart.'),
-                    backgroundColor: AppColors.error,
+                  SnackBar(
+                    content: const Text('Could not update the cart.'),
+                    backgroundColor: colorScheme.error,
                   ),
                 );
               } else if (state is removeCartsuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text('success.....'),
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: colorScheme.primary,
                   ),
                 );
               }
@@ -143,14 +146,14 @@ class _CartScreenState extends State<CartScreen> {
                             background: Container(
                               margin: const EdgeInsets.only(bottom: 16),
                               decoration: BoxDecoration(
-                                color: AppColors.error,
+                                color: colorScheme.error,
                                 borderRadius: BorderRadius.circular(24),
                               ),
                               alignment: Alignment.centerRight,
                               padding: const EdgeInsets.only(right: 20.0),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.delete_outline,
-                                color: Colors.white,
+                                color: colorScheme.onError,
                                 size: 28,
                               ),
                             ),
@@ -171,10 +174,10 @@ class _CartScreenState extends State<CartScreen> {
                               margin: const EdgeInsets.only(bottom: 16),
                               padding: const EdgeInsets.all(14.0),
                               decoration: BoxDecoration(
-                                color: AppColors.brandButtonMuted,
+                                color: colors.profileCard,
                                 borderRadius: BorderRadius.circular(24),
                                 border: Border.all(
-                                  color: AppColors.brandDialSilver,
+                                  color: colors.borderSide,
                                   width: 1,
                                 ),
                               ),
@@ -186,7 +189,7 @@ class _CartScreenState extends State<CartScreen> {
                                     child: Container(
                                       width: 85,
                                       height: 85,
-                                      color: AppColors.brandDialMark,
+                                      color: colors.bottomBackground,
                                       child: imageUrl.isNotEmpty
                                           ? Image.network(
                                               imageUrl,
@@ -202,8 +205,7 @@ class _CartScreenState extends State<CartScreen> {
                                                     child: Icon(
                                                       Icons
                                                           .image_not_supported_outlined,
-                                                      color: AppColors
-                                                          .brandButtonMuted,
+                                                      color: colors.gray,
                                                       size: 28,
                                                     ),
                                                   ),
@@ -211,8 +213,7 @@ class _CartScreenState extends State<CartScreen> {
                                           : Center(
                                               child: Icon(
                                                 Icons.image_outlined,
-                                                color:
-                                                    AppColors.brandButtonMuted,
+                                                color: colors.gray,
                                                 size: 28,
                                               ),
                                             ),
@@ -228,7 +229,7 @@ class _CartScreenState extends State<CartScreen> {
                                         Text(
                                           brand.toUpperCase(),
                                           style: AppStyles.style11Bold.copyWith(
-                                            color: AppColors.brandButtonMuted,
+                                            color: colors.gray,
                                             letterSpacing: 0.5,
                                           ),
                                         ),
@@ -236,7 +237,7 @@ class _CartScreenState extends State<CartScreen> {
                                         Text(
                                           name,
                                           style: AppStyles.style17Bold.copyWith(
-                                            color: AppColors.brandDialBlue,
+                                            color: colors.text,
                                           ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -246,10 +247,7 @@ class _CartScreenState extends State<CartScreen> {
                                           Text(
                                             description,
                                             style: AppStyles.style13Regular
-                                                .copyWith(
-                                                  color: AppColors
-                                                      .brandButtonMuted,
-                                                ),
+                                                .copyWith(color: colors.gray),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -262,10 +260,7 @@ class _CartScreenState extends State<CartScreen> {
                                             Text(
                                               '\$${price.toStringAsFixed(2)}',
                                               style: AppStyles.style18ExtraBold
-                                                  .copyWith(
-                                                    color:
-                                                        AppColors.brandDialBlue,
-                                                  ),
+                                                  .copyWith(color: colors.text),
                                             ),
                                             CounterButton(
                                               initialValue: quantity,
@@ -292,11 +287,7 @@ class _CartScreenState extends State<CartScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            Icons.arrow_back,
-                            size: 17,
-                            color: AppColors.brandButtonMuted,
-                          ),
+                          Icon(Icons.arrow_back, size: 17, color: colors.gray),
                           SizedBox(width: 5),
                           Text(
                             'Swipe left to delete item',
@@ -312,10 +303,10 @@ class _CartScreenState extends State<CartScreen> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 filled: true,
-                                fillColor: AppColors.surfaceContainerLow,
+                                fillColor: colors.cardFill,
                                 hintText: 'Enter promo code...',
                                 hintStyle: AppStyles.style14Regular.copyWith(
-                                  color: AppColors.brandTextMuted,
+                                  color: colors.gray,
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
@@ -324,7 +315,7 @@ class _CartScreenState extends State<CartScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(50),
                                   borderSide: BorderSide(
-                                    color: AppColors.primary,
+                                    color: colorScheme.primary,
                                     width: 1,
                                   ),
                                 ),
@@ -337,7 +328,7 @@ class _CartScreenState extends State<CartScreen> {
                               log('is applied');
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primary,
+                              backgroundColor: colorScheme.primary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
                               ),
@@ -345,7 +336,7 @@ class _CartScreenState extends State<CartScreen> {
                             child: Text(
                               'Apply',
                               style: AppStyles.style16Bold.copyWith(
-                                color: AppColors.onPrimary,
+                                color: colorScheme.onPrimary,
                               ),
                             ),
                           ),
@@ -353,7 +344,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       const SizedBox(height: 30),
                       Card(
-                        color: AppColors.surfaceContainerLow,
+                        color: colors.cardFill,
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
@@ -372,7 +363,7 @@ class _CartScreenState extends State<CartScreen> {
                                 title: 'Shipping',
                                 value: 'free',
                               ),
-                              Divider(color: AppColors.outlineVariant),
+                              Divider(color: colors.borderSide),
                               Row(
                                 children: [
                                   Text('Total', style: AppStyles.style16Bold),
@@ -380,7 +371,7 @@ class _CartScreenState extends State<CartScreen> {
                                   Text(
                                     '\$${calculateTotal.toStringAsFixed(2)}',
                                     style: AppStyles.style16Bold.copyWith(
-                                      color: AppColors.primary,
+                                      color: colorScheme.primary,
                                     ),
                                   ),
                                 ],
@@ -395,7 +386,7 @@ class _CartScreenState extends State<CartScreen> {
                           log('you checkout ');
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
+                          backgroundColor: colorScheme.primary,
                           minimumSize: const Size(double.infinity, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -404,7 +395,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: Text(
                           'Proceed to Checkout',
                           style: AppStyles.style16Bold.copyWith(
-                            color: AppColors.onPrimary,
+                            color: colorScheme.onPrimary,
                           ),
                         ),
                       ),
@@ -430,15 +421,15 @@ class CustomSummaryItem extends StatelessWidget {
   final String title, value;
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
         children: [
           Text(
             title,
-            style: AppStyles.style14Medium.copyWith(
-              color: AppColors.brandTextMuted,
-            ),
+            style: AppStyles.style14Medium.copyWith(color: colors.gray),
           ),
           const Spacer(),
           Text(value, style: AppStyles.style14SemiBold),

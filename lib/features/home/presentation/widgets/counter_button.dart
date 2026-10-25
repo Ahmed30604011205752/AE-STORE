@@ -1,4 +1,4 @@
-import 'package:ae_store/core/theme/App_colors.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
 import 'package:flutter/material.dart';
 
@@ -40,14 +40,15 @@ class _CounterButtonState extends State<CounterButton> {
   @override
   Widget build(BuildContext context) {
     final double buttonSize = (widget.height - 12).clamp(24.0, 34.0);
+    final colors = context.colors;
 
     return Container(
       width: widget.width,
       height: widget.height,
       decoration: BoxDecoration(
-        color: AppColors.brandDialBlue,
+        color: colors.profileCard,
         borderRadius: BorderRadius.circular(45),
-        border: Border.all(color: AppColors.brandDialSilver, width: 1),
+        border: Border.all(color: colors.borderSide, width: 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -66,17 +67,15 @@ class _CounterButtonState extends State<CounterButton> {
               width: buttonSize,
               height: buttonSize,
               decoration: BoxDecoration(
-                color: counter > 1
-                    ? AppColors.primary
-                    : AppColors.brandDialBlue,
+                color: counter > 1 ? colors.primary : colors.bottomBackground,
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.remove_rounded,
                 size: (buttonSize * 0.55).clamp(14.0, 18.0),
                 color: counter > 1
-                    ? AppColors.background
-                    : AppColors.brandButtonMuted,
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : colors.gray,
               ),
             ),
           ),
@@ -86,9 +85,7 @@ class _CounterButtonState extends State<CounterButton> {
             child: Center(
               child: Text(
                 "$counter",
-                style: AppStyles.style16SemiBold.copyWith(
-                  color: AppColors.brandButtonMuted,
-                ),
+                style: AppStyles.style16SemiBold.copyWith(color: colors.text),
               ),
             ),
           ),
@@ -104,13 +101,13 @@ class _CounterButtonState extends State<CounterButton> {
               width: buttonSize,
               height: buttonSize,
               decoration: BoxDecoration(
-                color: AppColors.primary,
+                color: colors.primary,
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.add_rounded,
                 size: (buttonSize * 0.55).clamp(14.0, 18.0),
-                color: AppColors.background,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
           ),

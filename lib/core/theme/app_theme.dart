@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
 
-  static ThemeData get lightTheme => _buildTheme(
+  static final ThemeData lightTheme = _buildTheme(
     colorScheme: AppColors.lightColorScheme,
     background: AppColors.background,
     surface: AppColors.surfaceContainerLowest,
@@ -14,7 +14,7 @@ class AppTheme {
     mutedText: AppColors.brandTextMuted,
   );
 
-  static ThemeData get darkTheme => _buildTheme(
+  static final ThemeData darkTheme = _buildTheme(
     colorScheme: AppColors.darkColorScheme,
     background: AppColors.darkBackground,
     surface: AppColors.darkSurface,

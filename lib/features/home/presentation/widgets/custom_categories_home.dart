@@ -1,5 +1,5 @@
-import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_states.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +27,7 @@ class CustomCategoriesHome extends StatelessWidget {
           current is GetProductsFailureState ||
           current is ProductsInitialState,
       builder: (context, state) {
+        final colors = context.colors;
         final cubit = context.read<ProductsCubit>();
         final categories = _getCategories(cubit);
 
@@ -38,9 +39,7 @@ class CustomCategoriesHome extends StatelessWidget {
             child: Center(
               child: Text(
                 state.error ?? 'Unable to load categories',
-                style: AppStyles.style12Medium.copyWith(
-                  color: AppColors.brandTextMuted,
-                ),
+                style: AppStyles.style12Medium.copyWith(color: colors.gray),
               ),
             ),
           );
@@ -68,11 +67,13 @@ class CustomCategoriesHome extends StatelessWidget {
                 onSelected: (_) => onCategorySelected(id),
                 showCheckmark: false,
                 labelStyle: AppStyles.style13SemiBold.copyWith(
-                  color: isSelected ? AppColors.onPrimary : AppColors.brandInk,
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : colors.text,
                 ),
-                selectedColor: AppColors.brandNavy,
-                backgroundColor: AppColors.surfaceContainerLow,
-                side: BorderSide.none,
+                selectedColor: colors.primary,
+                backgroundColor: colors.cardFill,
+                side: BorderSide(color: colors.borderSide),
                 shape: const StadiumBorder(),
                 padding: const EdgeInsets.symmetric(horizontal: 10),
               );

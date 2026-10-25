@@ -1,5 +1,6 @@
 import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/home/data/models/product_model.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_states.dart';
@@ -15,6 +16,8 @@ class CutomGridviewHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BlocConsumer<ProductsCubit, ProductsState>(
       listenWhen: (previous, current) =>
           current is addToCartloding ||
@@ -35,8 +38,8 @@ class CutomGridviewHome extends StatelessWidget {
             SnackBar(
               content: Text(message),
               backgroundColor: state is addToCartFailure
-                  ? AppColors.error
-                  : AppColors.primary,
+                  ? colorScheme.error
+                  : colorScheme.primary,
             ),
           );
       },
@@ -165,8 +168,11 @@ class _ProductCardState extends State<_ProductCard> {
   @override
   Widget build(BuildContext context) {
     final product = widget.product;
+    final colors = context.colors;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Material(
-      color: AppColors.surfaceContainerLowest,
+      color: colors.profileCard,
       borderRadius: BorderRadius.circular(18),
       child: InkWell(
         onTap: widget.onTap,
@@ -174,9 +180,7 @@ class _ProductCardState extends State<_ProductCard> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: AppColors.outlineVariant.withValues(alpha: 0.5),
-            ),
+            border: Border.all(color: colors.borderSide.withValues(alpha: 0.5)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,10 +200,10 @@ class _ProductCardState extends State<_ProductCard> {
                         errorBuilder: (context, error, stackTrace) => Container(
                           color: AppColors.brandProductBackdrop,
                           alignment: Alignment.center,
-                          child: const Icon(
+                          child: Icon(
                             Icons.image_not_supported_outlined,
                             size: 36,
-                            color: AppColors.brandDialBlue,
+                            color: colors.gray,
                           ),
                         ),
                       ),
@@ -214,13 +218,13 @@ class _ProductCardState extends State<_ProductCard> {
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColors.primaryFixed,
+                            color: colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Text(
                             '${product.discountPercentage.toStringAsFixed(0)}% OFF',
                             style: AppStyles.style11Bold.copyWith(
-                              color: AppColors.brandNavy,
+                              color: colorScheme.onPrimaryContainer,
                             ),
                           ),
                         ),
@@ -229,9 +233,7 @@ class _ProductCardState extends State<_ProductCard> {
                       top: 10,
                       right: 10,
                       child: Material(
-                        color: AppColors.surfaceContainerLowest.withValues(
-                          alpha: 0.94,
-                        ),
+                        color: colors.profileCard.withValues(alpha: 0.94),
                         shape: const CircleBorder(),
                         child: IconButton(
                           visualDensity: VisualDensity.compact,
@@ -246,8 +248,8 @@ class _ProductCardState extends State<_ProductCard> {
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             color: _isFavorite
-                                ? AppColors.error
-                                : AppColors.brandInk,
+                                ? colorScheme.error
+                                : colors.text,
                             size: 20,
                           ),
                         ),
@@ -268,7 +270,7 @@ class _ProductCardState extends State<_ProductCard> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppStyles.style11Bold.copyWith(
-                          color: AppColors.brandTextMuted,
+                          color: colors.gray,
                           letterSpacing: 0.7,
                         ),
                       ),
@@ -278,7 +280,7 @@ class _ProductCardState extends State<_ProductCard> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppStyles.style14SemiBold.copyWith(
-                          color: AppColors.brandInk,
+                          color: colors.text,
                         ),
                       ),
                       if (product.reviewsCount > 0)
@@ -286,16 +288,16 @@ class _ProductCardState extends State<_ProductCard> {
                           padding: const EdgeInsets.only(top: 3),
                           child: Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.star_rounded,
                                 size: 15,
-                                color: AppColors.secondary,
+                                color: colorScheme.secondary,
                               ),
                               const SizedBox(width: 3),
                               Text(
                                 product.rating.toStringAsFixed(1),
                                 style: AppStyles.style12Medium.copyWith(
-                                  color: AppColors.brandTextMuted,
+                                  color: colors.gray,
                                 ),
                               ),
                               const SizedBox(width: 4),
@@ -304,7 +306,7 @@ class _ProductCardState extends State<_ProductCard> {
                                   '(${product.reviewsCount})',
                                   overflow: TextOverflow.ellipsis,
                                   style: AppStyles.style12Regular.copyWith(
-                                    color: AppColors.brandTextMuted,
+                                    color: colors.gray,
                                   ),
                                 ),
                               ),
@@ -320,7 +322,7 @@ class _ProductCardState extends State<_ProductCard> {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppStyles.style18ExtraBold.copyWith(
-                                color: AppColors.brandInk,
+                                color: colors.text,
                               ),
                             ),
                           ),
@@ -328,9 +330,9 @@ class _ProductCardState extends State<_ProductCard> {
                             visualDensity: VisualDensity.compact,
                             tooltip: 'Add to bag',
                             onPressed: widget.onAddToCart,
-                            icon: const Icon(
+                            icon: Icon(
                               Icons.add_shopping_cart_outlined,
-                              color: AppColors.brandNavy,
+                              color: colors.primary,
                               size: 19,
                             ),
                           ),
@@ -356,19 +358,19 @@ class _ProductsMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32),
       child: Center(
         child: Column(
           children: [
-            Icon(icon, size: 36, color: AppColors.brandTextMuted),
+            Icon(icon, size: 36, color: colors.gray),
             const SizedBox(height: 8),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: AppStyles.style14Regular.copyWith(
-                color: AppColors.brandTextMuted,
-              ),
+              style: AppStyles.style14Regular.copyWith(color: colors.gray),
             ),
           ],
         ),

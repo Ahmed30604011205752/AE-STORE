@@ -1,8 +1,8 @@
-import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:ae_store/features/cart/presentation/screens/cart_screen.dart';
 import 'package:ae_store/features/home/presentation/screens/category_products_screen.dart';
 import 'package:ae_store/features/home/presentation/screens/home_screen.dart';
+import 'package:ae_store/features/profile/presentation/screens/profile_screen.dart';
 import 'package:ae_store/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,11 +46,10 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
           create: (_) => CartCubit(),
           child: const CartScreen(),
         );
+      case 3:
+        return const ProfileScreen();
       default:
-        return const _TemporaryTabScreen(
-          title: 'Profile',
-          icon: Icons.person_outline,
-        );
+        throw StateError('Unexpected bottom navigation index: $index');
     }
   }
 
@@ -96,32 +95,5 @@ class _KeepAlivePageState extends State<_KeepAlivePage>
   Widget build(BuildContext context) {
     super.build(context);
     return widget.child;
-  }
-}
-
-class _TemporaryTabScreen extends StatelessWidget {
-  const _TemporaryTabScreen({required this.title, required this.icon});
-
-  final String title;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 56, color: AppColors.brandNavy),
-            const SizedBox(height: 12),
-            Text(
-              '$title page is coming soon',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

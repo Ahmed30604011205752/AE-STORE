@@ -1,5 +1,5 @@
-import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/widgets/custom_categories_home.dart';
 import 'package:ae_store/features/home/presentation/widgets/cutom_gridview_home.dart';
@@ -52,10 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return BlocProvider.value(
       value: _productsCubit,
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: colors.background,
         body: SafeArea(
           child: SingleChildScrollView(
             controller: _scrollController,
@@ -77,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   'CURATED SELECTION',
                   style: AppStyles.style12Medium.copyWith(
-                    color: AppColors.brandTextMuted,
+                    color: colors.gray,
                     letterSpacing: 1.1,
                   ),
                 ),
@@ -88,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         'Featured Creations',
                         style: AppStyles.style22Bold.copyWith(
-                          color: AppColors.brandInk,
+                          color: colors.text,
                         ),
                       ),
                     ),
@@ -100,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         'View All ›',
                         style: AppStyles.style13SemiBold.copyWith(
-                          color: AppColors.brandNavy,
+                          color: colors.primary,
                         ),
                       ),
                     ),
@@ -127,10 +129,12 @@ class _ConciergeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.primaryFixed,
+        color: colors.cardFill,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -138,11 +142,14 @@ class _ConciergeCard extends StatelessWidget {
           Container(
             width: 52,
             height: 52,
-            decoration: const BoxDecoration(
-              color: AppColors.brandNavy,
+            decoration: BoxDecoration(
+              color: colors.primary,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.support_agent, color: AppColors.onPrimary),
+            child: Icon(
+              Icons.support_agent,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -152,31 +159,27 @@ class _ConciergeCard extends StatelessWidget {
                 Text(
                   'PRIVILEGED SERVICE',
                   style: AppStyles.style11Bold.copyWith(
-                    color: AppColors.brandNavy,
+                    color: colors.primary,
                     letterSpacing: 1,
                   ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   'Atelier Concierge',
-                  style: AppStyles.style16Bold.copyWith(
-                    color: AppColors.brandInk,
-                  ),
+                  style: AppStyles.style16Bold.copyWith(color: colors.text),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   'One-on-one private styling & bespoke care',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppStyles.style12Regular.copyWith(
-                    color: AppColors.brandTextMuted,
-                  ),
+                  style: AppStyles.style12Regular.copyWith(color: colors.gray),
                 ),
               ],
             ),
           ),
           const SizedBox(width: 8),
-          const Icon(Icons.calendar_month_outlined, color: AppColors.brandNavy),
+          Icon(Icons.calendar_month_outlined, color: colors.primary),
         ],
       ),
     );
