@@ -91,9 +91,9 @@ class AuthRemoteDataSource {
     }
   }
 
-  Future<Response> resendOtp({required String email}) async {
+  Future<void> resendOtp({required String email}) async {
     try {
-      return await dio.post(
+      await dio.post(
         'https://accessories-eshop.runasp.net/api/auth/resend-otp',
         data: {'email': email},
       );

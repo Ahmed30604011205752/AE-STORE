@@ -13,7 +13,11 @@ class LoginFailureState extends AuthState {
 
 class SignUpLoadingState extends AuthState {}
 
-class SignUpSuccessState extends AuthState {}
+class SignUpSuccessState extends AuthState {
+  SignUpSuccessState({this.otpError});
+
+  final String? otpError;
+}
 
 class SignUpFailureState extends AuthState {
   final String error;

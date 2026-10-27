@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ae_store/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
 import 'package:ae_store/features/home/data/models/product_model.dart';
@@ -41,30 +42,38 @@ class _ProductDetailsState extends State<ProductDetails> {
         if (state is addToCartloding) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('loading.....'),
-              backgroundColor: AppColors.brandStrapBrown,
+              content: Text(
+                'loading.....',
+                style: AppStyles.style13Regular.copyWith(
+                  color: AppColors.brandDialDeepBlue,
+                ),
+              ),
+              backgroundColor: AppColors.brandDialMark,
             ),
           );
         } else if (state is addToCartFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Erorr......'),
+              content: Text(
+                state.message ?? 'Could not add item to your cart.',
+              ),
               backgroundColor: AppColors.error,
             ),
           );
         } else if (state is addToCartSuccess) {
+          BlocProvider.of<CartCubit>(context, listen: false).getcart();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('success......'),
+              content: const Text('Added to your cart'),
               backgroundColor: AppColors.primary,
             ),
           );
         }
       },
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.brandProductBackdrop,
         appBar: AppBar(
-          backgroundColor: AppColors.background,
+          backgroundColor: AppColors.brandProductBackdrop,
           leadingWidth: 90,
           leading: IconButton(
             onPressed: () {

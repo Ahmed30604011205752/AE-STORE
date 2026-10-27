@@ -7,9 +7,11 @@ import 'package:ae_store/features/auth/presentation/auth_cubit/auth_states.dart'
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitialState());
+  AuthCubit({AuthRemoteDataSource? authRemoteDataSource})
+    : authRemoteDataSource = authRemoteDataSource ?? AuthRemoteDataSource(),
+      super(AuthInitialState());
 
-  final AuthRemoteDataSource authRemoteDataSource = AuthRemoteDataSource();
+  final AuthRemoteDataSource authRemoteDataSource;
 
   Future<void> login({required String email, required String password}) async {
     emit(LoginLoadingState());
@@ -41,12 +43,24 @@ class AuthCubit extends Cubit<AuthState> {
         firstName: firstName,
         lastName: lastName,
       );
-      emit(SignUpSuccessState());
     } catch (error) {
       final message = apiErrorMessage(error);
       log(message);
       emit(SignUpFailureState(error: message));
+      return;
     }
+
+    String? otpError;
+    try {
+      await authRemoteDataSource.resendOtp(email: email);
+    } catch (error) {
+      otpError = apiErrorMessage(error);
+      log(
+        'Account created, but verification code could not be sent: $otpError',
+      );
+    }
+
+    emit(SignUpSuccessState(otpError: otpError));
   }
 
   ////

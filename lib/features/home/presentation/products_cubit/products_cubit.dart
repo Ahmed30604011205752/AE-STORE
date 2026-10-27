@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ae_store/core/network/api_error_message.dart';
 import 'package:ae_store/features/home/data/data_sources/home_remote_data_source.dart';
 import 'package:ae_store/features/home/data/models/offer_model.dart';
 import 'package:ae_store/features/home/data/models/product_model.dart';
@@ -72,15 +75,23 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   Future<void> addToCart(String? productId) async {
     if (isClosed) return;
+    final normalizedProductId = productId?.trim();
+    if (normalizedProductId == null || normalizedProductId.isEmpty) {
+      emit(
+        addToCartFailure(
+          message: 'This product cannot be added because its ID is missing.',
+        ),
+      );
+      return;
+    }
+
     emit(addToCartloding());
     try {
-      if (productId == null || productId.isEmpty) {
-        throw ArgumentError.value(productId, 'productId', 'Must not be empty');
-      }
-      await homeRemoteDataSource.addToCart(productId);
+      await homeRemoteDataSource.addToCart(normalizedProductId);
       if (!isClosed) emit(addToCartSuccess());
     } catch (error) {
-      if (!isClosed) emit(addToCartFailure());
+      log('Failed to add product to cart: $error');
+      if (!isClosed) emit(addToCartFailure(message: apiErrorMessage(error)));
     }
   }
 

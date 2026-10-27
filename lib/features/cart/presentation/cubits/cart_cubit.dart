@@ -10,7 +10,7 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(getcartIntionslate());
 
   Future<void> getcart() async {
-    if (isClosed) return;
+    if (isClosed || state is getcartloding) return;
     emit(getcartloding());
     try {
       final products = await cartRemoteDataSource.getcart();

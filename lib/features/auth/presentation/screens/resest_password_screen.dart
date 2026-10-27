@@ -6,7 +6,7 @@ import 'package:ae_store/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:ae_store/features/auth/presentation/auth_cubit/auth_states.dart';
 import 'package:ae_store/features/auth/presentation/widgets/Custom_password_field.dart';
 import 'package:ae_store/features/auth/presentation/widgets/password_text_section.dart';
-import 'package:ae_store/screens/login_screen.dart';
+import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

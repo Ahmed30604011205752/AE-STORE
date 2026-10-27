@@ -1,13 +1,14 @@
 import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/utils/validators.dart';
-import 'package:ae_store/core/widgets/ae_store_logo.dart';
 import 'package:ae_store/core/widgets/custom_elevated_buttom.dart';
 import 'package:ae_store/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:ae_store/features/auth/presentation/auth_cubit/auth_states.dart';
 import 'package:ae_store/features/auth/presentation/screens/verify_email_screen.dart';
 import 'package:ae_store/features/auth/presentation/widgets/Custom_TextField.dart';
 import 'package:ae_store/features/auth/presentation/widgets/Custom_password_field.dart';
-import 'package:ae_store/screens/login_screen.dart';
+import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
+import 'package:ae_store/features/auth/presentation/widgets/login_header_section.dart';
+import 'package:ae_store/features/auth/presentation/widgets/login_social_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -62,11 +63,23 @@ class _SignupScreenState extends State<SignupScreen> {
       child: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is SignUpSuccessState) {
+            if (state.otpError != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Account created, but the verification code could not be '
+                    'sent: ${state.otpError}',
+                  ),
+                ),
+              );
+            }
             Navigator.push(
               context,
               MaterialPageRoute<void>(
-                builder: (_) =>
-                    VerifyEmailScreen(email: _emailController.text.trim()),
+                builder: (_) => VerifyEmailScreen(
+                  email: _emailController.text.trim(),
+                  initialOtpSendFailed: state.otpError != null,
+                ),
               ),
             );
           } else if (state is SignUpFailureState) {
@@ -77,29 +90,7 @@ class _SignupScreenState extends State<SignupScreen> {
         },
         builder: (context, state) => Scaffold(
           backgroundColor: AppColors.background,
-          appBar: AppBar(
-            leading: const BackButton(),
-            title: Row(
-              children: [
-                const AEStoreLogo(size: 42),
-                const SizedBox(width: 10),
-                Text(
-                  'AE STORE',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.brandNavy,
-                  ),
-                ),
-              ],
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 12),
-                child: Icon(Icons.person_outline, color: AppColors.brandNavy),
-              ),
-            ],
-          ),
+
           body: SafeArea(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
@@ -107,6 +98,10 @@ class _SignupScreenState extends State<SignupScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
+                    LoginHeaderSection(
+                      title: 'Welcome',
+                      subTitle: 'Create an account to get started',
+                    ),
                     const SizedBox(height: 8),
                     CustomTextField(
                       title: 'Full Name',
@@ -204,11 +199,13 @@ class _SignupScreenState extends State<SignupScreen> {
                           : () => _submit(context),
                     ),
                     const SizedBox(height: 28),
+                    LoginSocialSection(),
+                    SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Already a member? ',
+                          'Already a member?',
                           style: TextStyle(color: AppColors.brandTextMuted),
                         ),
                         TextButton(

@@ -20,6 +20,7 @@ class LoginSocialSection extends StatelessWidget {
           child: CustomSocialButton(
             text: 'Apple',
             iconPath: 'assets/icons/apple_icon.svg',
+            onPressed: () {},
           ),
         ),
       ],
