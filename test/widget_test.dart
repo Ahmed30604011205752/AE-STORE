@@ -5,26 +5,21 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
+import 'package:ae_store/core/theme/App_colors.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
+import 'package:ae_store/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ae_store/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const AE_STORE());
+  test('light theme uses AppColors', () {
+    expect(AppTheme.lightTheme.colorScheme.primary, AppColors.primary);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('app opens on the splash screen', (tester) async {
+    await tester.pumpWidget(const AEStore());
+    await tester.pump(const Duration(milliseconds: 1900));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('ENTER SALON'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 }

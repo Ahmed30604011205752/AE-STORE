@@ -18,10 +18,18 @@ class BottomNavigationBarScreen extends StatefulWidget {
 class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
   int currentIndex = 0;
   final PageController _pageController = PageController();
+  late final CartCubit _cartCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _cartCubit = CartCubit();
+  }
 
   @override
   void dispose() {
     _pageController.dispose();
+    _cartCubit.close();
     super.dispose();
   }
 
@@ -42,10 +50,7 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
       case 1:
         return const CategoryProductsScreen();
       case 2:
-        return BlocProvider(
-          create: (_) => CartCubit(),
-          child: const CartScreen(),
-        );
+        return const CartScreen();
       case 3:
         return const ProfileScreen();
       default:
@@ -55,23 +60,27 @@ class _BottomNavigationBarScreenState extends State<BottomNavigationBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView.builder(
-        controller: _pageController,
-        physics: const BouncingScrollPhysics(),
-        itemCount: 4,
-        onPageChanged: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        itemBuilder: (context, index) {
-          return _KeepAlivePage(child: _buildPage(index));
-        },
-      ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: currentIndex,
-        onTap: _navigateToTab,
+    return BlocProvider.value(
+      value: _cartCubit,
+      child: Scaffold(
+        body: PageView.builder(
+          controller: _pageController,
+          physics: const BouncingScrollPhysics(),
+          itemCount: 4,
+          onPageChanged: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+            if (index == 2) _cartCubit.getcart();
+          },
+          itemBuilder: (context, index) {
+            return _KeepAlivePage(child: _buildPage(index));
+          },
+        ),
+        bottomNavigationBar: BottomNavBar(
+          currentIndex: currentIndex,
+          onTap: _navigateToTab,
+        ),
       ),
     );
   }

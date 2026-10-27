@@ -57,7 +57,11 @@ class addToCartloding extends ProductsState {}
 
 class addToCartSuccess extends ProductsState {}
 
-class addToCartFailure extends ProductsState {}
+class addToCartFailure extends ProductsState {
+  final String? message;
+
+  addToCartFailure({this.message});
+}
 
 class DeleteProductLoadingState extends ProductsState {
   final String productId;

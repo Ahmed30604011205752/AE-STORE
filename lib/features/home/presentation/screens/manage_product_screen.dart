@@ -7,6 +7,7 @@ import 'package:ae_store/features/home/data/models/product_model.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_states.dart';
 import 'package:ae_store/features/home/presentation/screens/add_product_screen.dart';
+import 'package:ae_store/features/home/presentation/screens/delete_confirmation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,24 +39,13 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
   }
 
   Future<void> _confirmDelete(BuildContext context, ProductModel product) {
-    return showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete product?'),
-        content: Text('Are you sure you want to delete "${product.name}"?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(dialogContext);
-              _deleteImmediately(context, product);
-            },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
-          ),
-        ],
+    return Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => DeleteConfirmation(
+          onDelete: () => _deleteImmediately(context, product),
+          productName: product.name,
+        ),
       ),
     );
   }
@@ -202,7 +192,7 @@ class _ManageProductScreenState extends State<ManageProductScreen> {
                           final product = _products[index];
                           return Card(
                             elevation: 0,
-                            color: AppColors.brandDialGold,
+                            color: AppColors.background,
                             margin: const EdgeInsets.symmetric(vertical: 8),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),

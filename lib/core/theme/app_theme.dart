@@ -165,6 +165,16 @@ class AppTheme {
         ),
       ),
       iconTheme: IconThemeData(color: colorScheme.primary),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: _SmoothPageTransitionsBuilder(),
+          TargetPlatform.iOS: _SmoothPageTransitionsBuilder(),
+          TargetPlatform.linux: _SmoothPageTransitionsBuilder(),
+          TargetPlatform.macOS: _SmoothPageTransitionsBuilder(),
+          TargetPlatform.windows: _SmoothPageTransitionsBuilder(),
+          TargetPlatform.fuchsia: _SmoothPageTransitionsBuilder(),
+        },
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: surface,
         selectedItemColor: colorScheme.primary,
@@ -257,6 +267,35 @@ class AppTheme {
             ? AppColorScheme.dark
             : AppColorScheme.light,
       ],
+    );
+  }
+}
+
+class _SmoothPageTransitionsBuilder extends PageTransitionsBuilder {
+  const _SmoothPageTransitionsBuilder();
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final curvedAnimation = CurvedAnimation(
+      parent: animation,
+      curve: Curves.easeOutCubic,
+    );
+
+    return FadeTransition(
+      opacity: curvedAnimation,
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(0.035, 0),
+          end: Offset.zero,
+        ).animate(curvedAnimation),
+        child: child,
+      ),
     );
   }
 }

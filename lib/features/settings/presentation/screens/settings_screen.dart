@@ -188,7 +188,7 @@ class SettingsScreenState extends State<SettingsScreen> {
                     height: 60,
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                      color: colors.cardFill,
+                      color: Theme.of(context).focusColor,
                       borderRadius: BorderRadius.circular(14),
                       border: Border.all(color: colors.borderSide, width: 1.5),
                     ),

@@ -6,15 +6,20 @@ import 'package:ae_store/core/widgets/custom_elevated_buttom.dart';
 import 'package:ae_store/core/widgets/custom_text_button.dart';
 import 'package:ae_store/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:ae_store/features/auth/presentation/auth_cubit/auth_states.dart';
-import 'package:ae_store/screens/login_screen.dart';
+import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
-  const VerifyEmailScreen({super.key, required this.email});
+  const VerifyEmailScreen({
+    super.key,
+    required this.email,
+    this.initialOtpSendFailed = false,
+  });
 
   final String email;
+  final bool initialOtpSendFailed;
 
   @override
   State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
@@ -49,13 +54,17 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   );
   final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
 
-  int _secondsRemaining = 118;
+  late int _secondsRemaining;
   Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    _startTimer();
+    if (widget.initialOtpSendFailed) {
+      _secondsRemaining = 0;
+    } else {
+      _startTimer();
+    }
   }
 
   void _startTimer() {

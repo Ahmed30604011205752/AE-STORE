@@ -12,7 +12,7 @@ class SettingsContainer extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: colors.profileCard,
+        color: Theme.of(context).focusColor,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: colors.borderSide, width: 1.5),
       ),

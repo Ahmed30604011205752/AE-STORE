@@ -1,5 +1,5 @@
-import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
+import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -27,6 +27,9 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       spacing: 8,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +38,7 @@ class CustomTextField extends StatelessWidget {
           title,
           style: AppStyles.style14SemiBold.copyWith(
             fontFamily: "Manrope",
-            color: AppColors.primary,
+            color: colors.primary,
           ),
         ),
         TextFormField(
@@ -45,26 +48,21 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText ?? false,
           keyboardType: keyboardType,
           maxLines: maxLines,
-          style: const TextStyle(color: AppColors.onBackground),
+          style: TextStyle(color: colors.text),
           decoration: InputDecoration(
             filled: true,
-            fillColor: AppColors.background,
+            fillColor: colors.cardFill,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             hintText: hintText,
-            hintStyle: AppStyles.style14Regular.copyWith(
-              color: AppColors.brandTextMuted,
-            ),
+            hintStyle: AppStyles.style14Regular.copyWith(color: colors.gray),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(
-                color: AppColors.outlineVariant,
-                width: 0.5,
-              ),
+              borderSide: BorderSide(color: colors.borderSide, width: 0.5),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(color: AppColors.primary, width: 1.5),
+              borderSide: BorderSide(color: colorScheme.primary, width: 1.5),
             ),
           ),
         ),

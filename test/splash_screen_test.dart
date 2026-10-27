@@ -1,8 +1,26 @@
+import 'package:ae_store/core/Token/token.dart';
 import 'package:ae_store/features/splash/presentation/screens/splash_screen.dart';
+import 'package:ae_store/screens/bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets('restores an authenticated session after app restart', (
+    tester,
+  ) async {
+    final originalToken = token;
+    token = 'persisted-test-token';
+    addTearDown(() => token = originalToken);
+
+    await tester.pumpWidget(const MaterialApp(home: SplashScreen()));
+    await tester.pump(const Duration(milliseconds: 1900));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(BottomNavigationBarScreen), findsOneWidget);
+    expect(find.byType(SplashScreen), findsNothing);
+    expect(token, 'persisted-test-token');
+  });
+
   testWidgets('shows the AE Store splash screen after its entrance animation', (
     tester,
   ) async {

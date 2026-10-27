@@ -1,6 +1,8 @@
+import 'package:ae_store/core/Token/token.dart';
 import 'package:ae_store/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:ae_store/features/splash/presentation/widgets/splash_content.dart';
 import 'package:ae_store/core/theme/App_colors.dart';
+import 'package:ae_store/screens/bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   late final Animation<double> _logoOpacity;
   late final Animation<double> _contentOpacity;
   late final Animation<Offset> _contentSlide;
+  bool _hasNavigated = false;
 
   @override
   void initState() {
@@ -24,7 +27,13 @@ class _SplashScreenState extends State<SplashScreen>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1800),
-    )..forward();
+    );
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && token.isNotEmpty) {
+        _openHome();
+      }
+    });
+    _controller.forward();
 
     _logoScale = Tween<double>(begin: 0.72, end: 1).animate(
       CurvedAnimation(
@@ -56,6 +65,12 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _openOnboarding() {
+    if (token.isNotEmpty) {
+      _openHome();
+      return;
+    }
+    if (_hasNavigated) return;
+    _hasNavigated = true;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder<void>(
         transitionDuration: const Duration(milliseconds: 450),
@@ -64,6 +79,16 @@ class _SplashScreenState extends State<SplashScreen>
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },
+      ),
+    );
+  }
+
+  void _openHome() {
+    if (_hasNavigated || !mounted) return;
+    _hasNavigated = true;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+        builder: (_) => const BottomNavigationBarScreen(),
       ),
     );
   }

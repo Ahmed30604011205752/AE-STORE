@@ -2,6 +2,7 @@ import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:ae_store/core/theme/App_Styles.dart';
 import 'package:ae_store/core/theme/app_theme.dart';
 import 'package:ae_store/features/home/data/models/product_model.dart';
+import 'package:ae_store/features/cart/presentation/cubits/cart_cubit.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/products_cubit/products_states.dart';
 import 'package:ae_store/features/home/presentation/screens/product_screen.dart';
@@ -27,10 +28,15 @@ class CutomGridviewHome extends StatelessWidget {
         final message = switch (state) {
           addToCartloding() => 'Adding item to your bag...',
           addToCartSuccess() => 'Added to your bag',
-          addToCartFailure() => 'Could not add item to your bag',
+          addToCartFailure(:final message) =>
+            message ?? 'Could not add item to your bag',
           _ => null,
         };
         if (message == null) return;
+
+        if (state is addToCartSuccess) {
+          BlocProvider.of<CartCubit>(context, listen: false).getcart();
+        }
 
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
@@ -104,11 +110,7 @@ class CutomGridviewHome extends StatelessWidget {
               product: product,
               categoryName: categoryName,
               onTap: () => _openProduct(context, product),
-              onAddToCart: () {
-                if (product.id != null && product.id!.isNotEmpty) {
-                  cubit.addToCart(product.id);
-                }
-              },
+              onAddToCart: () => cubit.addToCart(product.id),
             );
           },
         );

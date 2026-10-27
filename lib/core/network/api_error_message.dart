@@ -10,21 +10,27 @@ String apiErrorMessage(Object error) {
 
   final data = error.response?.data;
   if (data is Map) {
-    final message = data['message'] ?? data['detail'] ?? data['title'];
-    if (message is String && message.trim().isNotEmpty) return message.trim();
-
     final errors = data['errors'];
     if (errors is Map) {
       final messages = <String>[];
       for (final value in errors.values) {
         if (value is Iterable) {
-          messages.addAll(value.map((item) => item.toString()));
+          messages.addAll(
+            value
+                .where((item) => item != null)
+                .map((item) => item.toString().trim())
+                .where((item) => item.isNotEmpty),
+          );
         } else if (value != null) {
-          messages.add(value.toString());
+          final message = value.toString().trim();
+          if (message.isNotEmpty) messages.add(message);
         }
       }
       if (messages.isNotEmpty) return messages.join('\n');
     }
+
+    final message = data['message'] ?? data['detail'] ?? data['title'];
+    if (message is String && message.trim().isNotEmpty) return message.trim();
   }
 
   if (data is String && data.trim().isNotEmpty) return data.trim();

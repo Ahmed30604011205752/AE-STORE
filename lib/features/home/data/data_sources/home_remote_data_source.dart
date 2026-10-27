@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:ae_store/core/Token/token.dart';
 import 'package:ae_store/core/network/api_client.dart';
+import 'package:ae_store/core/network/api_error_message.dart';
 import 'package:ae_store/features/home/data/models/offer_model.dart';
 import 'package:ae_store/features/home/data/models/product_model.dart';
 import 'package:dio/dio.dart';
@@ -120,6 +121,9 @@ class HomeRemoteDataSource {
 
   Future<void> addToCart(String productId) async {
     try {
+      if (token.isEmpty) {
+        throw Exception('Please sign in before adding items to your cart.');
+      }
       await dio.post(
         'https://accessories-eshop.runasp.net/api/cart/items',
         data: {'productId': productId, 'quantity': 1},
@@ -127,7 +131,7 @@ class HomeRemoteDataSource {
       );
     } on DioException catch (e) {
       log('Error in addToCart: $e');
-      throw Exception(e.response?.data?.toString() ?? e.message);
+      throw Exception(apiErrorMessage(e));
     }
   }
 
