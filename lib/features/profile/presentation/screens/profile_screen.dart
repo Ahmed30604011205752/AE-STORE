@@ -1,6 +1,8 @@
 import 'package:ae_store/core/theme/app_styles.dart';
 import 'package:ae_store/core/theme/theme_cubit.dart';
 import 'package:ae_store/core/Token/token.dart';
+import 'package:ae_store/features/home/Admin/admin_cubit.dart';
+import 'package:ae_store/features/home/presentation/products_cubit/products_cubit.dart';
 import 'package:ae_store/features/home/presentation/screens/manage_product_screen.dart';
 import 'package:ae_store/features/profile/presentation/widgets/custom_profile_item.dart';
 import 'package:ae_store/features/profile/presentation/widgets/custom_profile_item_model.dart';
@@ -98,7 +100,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ManageProductScreen(),
+                  builder: (context) => MultiBlocProvider(
+                    providers: [
+                      BlocProvider(create: (_) => AdminCubit()),
+                      BlocProvider(create: (_) => ProductsCubit()),
+                    ],
+                    child: const ManageProductScreen(),
+                  ),
                 ),
               );
               if (mounted) setState(() {});

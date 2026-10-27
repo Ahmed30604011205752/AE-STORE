@@ -4,7 +4,14 @@ import 'package:ae_store/core/theme/App_Styles.dart';
 import 'package:flutter/material.dart';
 
 class DeleteConfirmation extends StatelessWidget {
-  const DeleteConfirmation({super.key});
+  const DeleteConfirmation({
+    super.key,
+    required this.onDelete,
+    required this.productName,
+  });
+
+  final VoidCallback onDelete;
+  final String productName;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class DeleteConfirmation extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
           icon: Icon(Icons.arrow_back_ios, color: AppColors.brandButtonMuted),
         ),
         centerTitle: true,
@@ -47,10 +54,14 @@ class DeleteConfirmation extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 24),
-                    Text('Delete Product?', style: AppStyles.style18ExtraBold),
+                    Text(
+                      'Delete $productName?',
+                      textAlign: TextAlign.center,
+                      style: AppStyles.style18ExtraBold,
+                    ),
                     SizedBox(height: 12),
                     Text(
-                      'Are you sure you want to permanently remove this product from your inventory? This action cannot be undone.',
+                      'Are you sure you want to permanently remove "$productName" from your inventory? This action cannot be undone.',
                       maxLines: 3,
                       textAlign: TextAlign.center,
                       style: AppStyles.style13Regular,
@@ -60,7 +71,7 @@ class DeleteConfirmation extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.pop(context),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.background,
                             foregroundColor: Colors.black,
@@ -72,7 +83,10 @@ class DeleteConfirmation extends StatelessWidget {
                         ),
                         SizedBox(width: 12),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                            onDelete();
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.error,
                             foregroundColor: AppColors.background,
