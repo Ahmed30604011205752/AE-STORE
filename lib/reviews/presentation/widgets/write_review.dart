@@ -108,151 +108,195 @@ class _WriteReviewState extends State<WriteReview> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Container(
-                                  width: 50,
-                                  height: 5,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.brandDialSilver,
-                                    borderRadius: BorderRadius.circular(10),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Container(
+                                    width: 50,
+                                    height: 5,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.brandDialSilver,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 16),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Write a Review",
-                                    style: AppStyles.style20ExtraBold,
-                                  ),
-                                  Spacer(),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    style: IconButton.styleFrom(
-                                      backgroundColor: AppColors.background,
-                                      side: BorderSide(
-                                        color: AppColors.brandDialMark,
-                                        width: 1.2,
-                                      ),
-                                    ),
-                                    icon: Icon(
-                                      Icons.close,
-                                      size: 30,
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                "Select Rating",
-                                style: AppStyles.style14Bold,
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                SizedBox(height: 16),
+                                Row(
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() => selectedStars = 1);
-                                      },
-                                      child: Icon(
-                                        selectedStars >= 1
-                                            ? Icons.star
-                                            : Icons.star_border_rounded,
-                                        color: selectedStars >= 1
-                                            ? AppColors.primary
-                                            : AppColors.brandButtonMuted,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() => selectedStars = 2);
-                                      },
-                                      child: Icon(
-                                        selectedStars >= 2
-                                            ? Icons.star
-                                            : Icons.star_border_rounded,
-                                        color: selectedStars >= 2
-                                            ? AppColors.primary
-                                            : AppColors.background,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() => selectedStars = 3);
-                                      },
-                                      child: Icon(
-                                        selectedStars >= 3
-                                            ? Icons.star
-                                            : Icons.star_border_rounded,
-                                        color: selectedStars >= 3
-                                            ? AppColors.primary
-                                            : AppColors.brandButtonMuted,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() => selectedStars = 4);
-                                      },
-                                      child: Icon(
-                                        selectedStars >= 4
-                                            ? Icons.star
-                                            : Icons.star_border_rounded,
-                                        color: selectedStars >= 4
-                                            ? AppColors.primary
-                                            : AppColors.outlineVariant,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() => selectedStars = 5);
-                                      },
-                                      child: Icon(
-                                        selectedStars >= 5
-                                            ? Icons.star
-                                            : Icons.star_border_rounded,
-                                        color: selectedStars >= 5
-                                            ? AppColors.primary
-                                            : AppColors.outlineVariant,
-                                        size: 40,
-                                      ),
-                                    ),
-                                    SizedBox(width: 8),
                                     Text(
-                                      "$selectedStars / 5.0",
-                                      style: AppStyles.style14Bold.copyWith(
-                                        color: AppColors.primary,
+                                      "Write a Review",
+                                      style: AppStyles.style20ExtraBold,
+                                    ),
+                                    Spacer(),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      style: IconButton.styleFrom(
+                                        backgroundColor: AppColors.background,
+                                        side: BorderSide(
+                                          color: AppColors.brandDialMark,
+                                          width: 1.2,
+                                        ),
+                                      ),
+                                      icon: Icon(
+                                        Icons.close,
+                                        size: 30,
+                                        fontWeight: FontWeight.w900,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              SizedBox(height: 16),
-                              Text(
-                                "Review Title",
-                                style: AppStyles.style14Bold,
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Column(
+                                Text(
+                                  "Select Rating",
+                                  style: AppStyles.style14Bold,
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() => selectedStars = 1);
+                                        },
+                                        child: Icon(
+                                          selectedStars >= 1
+                                              ? Icons.star
+                                              : Icons.star_border_rounded,
+                                          color: selectedStars >= 1
+                                              ? AppColors.primary
+                                              : AppColors.brandButtonMuted,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() => selectedStars = 2);
+                                        },
+                                        child: Icon(
+                                          selectedStars >= 2
+                                              ? Icons.star
+                                              : Icons.star_border_rounded,
+                                          color: selectedStars >= 2
+                                              ? AppColors.primary
+                                              : AppColors.background,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() => selectedStars = 3);
+                                        },
+                                        child: Icon(
+                                          selectedStars >= 3
+                                              ? Icons.star
+                                              : Icons.star_border_rounded,
+                                          color: selectedStars >= 3
+                                              ? AppColors.primary
+                                              : AppColors.brandButtonMuted,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() => selectedStars = 4);
+                                        },
+                                        child: Icon(
+                                          selectedStars >= 4
+                                              ? Icons.star
+                                              : Icons.star_border_rounded,
+                                          color: selectedStars >= 4
+                                              ? AppColors.primary
+                                              : AppColors.outlineVariant,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() => selectedStars = 5);
+                                        },
+                                        child: Icon(
+                                          selectedStars >= 5
+                                              ? Icons.star
+                                              : Icons.star_border_rounded,
+                                          color: selectedStars >= 5
+                                              ? AppColors.primary
+                                              : AppColors.outlineVariant,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        "$selectedStars / 5.0",
+                                        style: AppStyles.style14Bold.copyWith(
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Text(
+                                  "Review Title",
+                                  style: AppStyles.style14Bold,
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor:
+                                              AppColors.surfaceContainerLow,
+                                          hintText: "Highly Recommended!",
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              16,
+                                            ),
+                                            borderSide: BorderSide(
+                                              color: AppColors.outlineVariant,
+                                              width: 2,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              16,
+                                            ),
+                                            borderSide: BorderSide(
+                                              color: AppColors.primary,
+                                              width: 1.5,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 18),
+                                Text(
+                                  "Review Description",
+                                  style: AppStyles.style14Bold,
+                                ),
+                                Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     TextField(
+                                      controller: commentCTR,
+                                      maxLines: 5,
+                                      minLines: 5,
                                       decoration: InputDecoration(
                                         filled: true,
                                         fillColor:
                                             AppColors.surfaceContainerLow,
-                                        hintText: "Highly Recommended!",
+                                        hintText:
+                                            "Don't forget to add your review description here...",
+                                        hintMaxLines: 5,
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                             16,
@@ -275,101 +319,65 @@ class _WriteReviewState extends State<WriteReview> {
                                     ),
                                   ],
                                 ),
-                              ),
-                              SizedBox(height: 18),
-                              Text(
-                                "Review Description",
-                                style: AppStyles.style14Bold,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextField(
-                                    controller: commentCTR,
-                                    maxLines: 5,
-                                    minLines: 5,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: AppColors.surfaceContainerLow,
-                                      hintText:
-                                          "Don't forget to add your review description here...",
-                                      hintMaxLines: 5,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: BorderSide(
-                                          color: AppColors.outlineVariant,
-                                          width: 2,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                        borderSide: BorderSide(
-                                          color: AppColors.primary,
-                                          width: 1.5,
+                                SizedBox(height: 20),
+                                Container(
+                                  width: double.infinity,
+                                  height: 48,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary,
+                                    borderRadius: BorderRadius.circular(45),
+                                  ),
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(45),
+                                    onTap: () async {
+                                      if (selectedStars == 0) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            backgroundColor: Colors.redAccent,
+                                            content: Text(
+                                              "Please choose a rating first",
+                                              style: AppStyles.style14Bold,
+                                            ),
+                                            duration: Duration(seconds: 3),
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      if (commentCTR.text.trim().isEmpty) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            backgroundColor: Colors.redAccent,
+                                            content: Text(
+                                              "Please enter your review",
+                                              style: AppStyles.style14Bold,
+                                            ),
+                                            duration: Duration(seconds: 3),
+                                          ),
+                                        );
+                                        return;
+                                      }
+                                      await reviewCubit.addReview(
+                                        productId: widget.productId,
+                                        rating: selectedStars.toInt(),
+                                        comment: commentCTR.text,
+                                      );
+                                    },
+                                    child: Center(
+                                      child: Text(
+                                        "Submit Review",
+                                        style: AppStyles.style16Bold.copyWith(
+                                          color: AppColors.onPrimary,
                                         ),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Container(
-                                width: double.infinity,
-                                height: 48,
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary,
-                                  borderRadius: BorderRadius.circular(45),
                                 ),
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(45),
-                                  onTap: () async {
-                                    if (selectedStars == 0) {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        const SnackBar(
-                                          backgroundColor: Colors.redAccent,
-                                          content: Text(
-                                            "Please choose a rating first",
-                                            style: AppStyles.style14Bold,
-                                          ),
-                                          duration: Duration(seconds: 3),
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    if (commentCTR.text.trim().isEmpty) {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        const SnackBar(
-                                          backgroundColor: Colors.redAccent,
-                                          content: Text(
-                                            "Please enter your review",
-                                            style: AppStyles.style14Bold,
-                                          ),
-                                          duration: Duration(seconds: 3),
-                                        ),
-                                      );
-                                      return;
-                                    }
-                                    await reviewCubit.addReview(
-                                      productId: widget.productId,
-                                      rating: selectedStars.toInt(),
-                                      comment: commentCTR.text,
-                                    );
-                                  },
-                                  child: Center(
-                                    child: Text(
-                                      "Submit Review",
-                                      style: AppStyles.style16Bold.copyWith(
-                                        color: AppColors.onPrimary,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

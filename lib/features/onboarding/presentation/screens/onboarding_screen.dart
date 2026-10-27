@@ -4,7 +4,7 @@ import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_hea
 import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_page_indicator.dart';
 import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_service_highlights.dart';
 import 'package:ae_store/features/onboarding/presentation/widgets/onboarding_slide_content.dart';
-import 'package:ae_store/screens/login_screen.dart';
+import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:ae_store/core/theme/App_colors.dart';
 import 'package:flutter/material.dart';
 

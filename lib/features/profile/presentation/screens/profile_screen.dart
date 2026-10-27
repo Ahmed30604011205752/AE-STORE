@@ -1,11 +1,11 @@
 import 'package:ae_store/core/theme/app_styles.dart';
 import 'package:ae_store/core/theme/theme_cubit.dart';
-import 'package:ae_store/features/auth/presentation/auth_cubit/auth_cubit.dart';
-import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
+import 'package:ae_store/core/Token/token.dart';
 import 'package:ae_store/features/home/presentation/screens/manage_product_screen.dart';
 import 'package:ae_store/features/profile/presentation/widgets/custom_profile_item.dart';
 import 'package:ae_store/features/profile/presentation/widgets/custom_profile_item_model.dart';
 import 'package:ae_store/features/settings/presentation/screens/settings_screen.dart';
+import 'package:ae_store/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -182,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(height: 16),
                     Card(
-                      color: theme.cardColor,
+                      color: theme.focusColor,
                       child: ListView.separated(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -205,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(),
                       child: Card(
-                        color: theme.cardColor,
+                        color: theme.focusColor,
                         child: ListView.separated(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -229,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     SizedBox(height: 30),
                     Card(
-                      color: theme.cardColor,
+                      color: theme.focusColor,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CustomProfileItems(
@@ -251,15 +251,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     child: const Text('Cancel'),
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      Navigator.pushReplacement(
+                                    onPressed: () async {
+                                      await clearToken();
+                                      if (!context.mounted) return;
+                                      Navigator.of(
                                         context,
-                                        MaterialPageRoute(
-                                          builder: (context) => BlocProvider(
-                                            create: (context) => AuthCubit(),
-                                            child: const LoginScreen(),
-                                          ),
+                                        rootNavigator: true,
+                                      ).pushAndRemoveUntil(
+                                        MaterialPageRoute<void>(
+                                          builder: (_) => const LoginScreen(),
                                         ),
+                                        (_) => false,
                                       );
                                     },
                                     child: Text(
